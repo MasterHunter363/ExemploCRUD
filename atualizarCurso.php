@@ -2,9 +2,11 @@
 
 require("conexao.php");
 
+$editaAluno = null;
+
 if (isset($_POST['atualizar'])) {
     $idMatricula = $_POST['idMatricula'];
-    $nome = $_POST['aluno'];
+    $nome = $_POST['nome'];
     $curso = $_POST['curso'];
 
     $atualizar = "UPDATE matricula SET nome='$nome', curso='$curso' WHERE idMatricula='$idMatricula'";
@@ -24,21 +26,41 @@ if (isset($_POST['atualizar'])) {
         </script>";
     }
 
-    $editaAluno = null;
+}
 
-    if (isset($_GET['editar'])) {
 
-        $editar = $_GET['editar'];
+if (isset($_GET['editar'])) {
 
-        $resultado = mysqli_query($conexao, "SELECT * FROM matricula WHERE idMatricula = '$idEditar'");
+    $idEditar = $_GET['editar'];
 
-    }
+    $resultado = mysqli_query($conexao, "SELECT * FROM matricula WHERE idMatricula = $idEditar");
 
     $editaAluno = mysqli_fetch_array($resultado);
+}
+
+
+$alunos = mysqli_query($conexao, "SELECT * FROM matricula");
+
+if(isset($_GET["apagar"])) {
+    $idMatricula = $_GET["apagar"];
+
+    $deletar = "DELETE FROM matricula WHERE idMatricula = $idMatricula";
+    if (mysqli_query($conexao, $deletar)) {
+        echo
+            " <script>
+            alert('Registro excluído com sucesso!');
+            window.location = 'atualizarCurso.php';
+            </script>";
+        exit();
+    } else {
+        echo
+            "<script>
+            alert('Erro ao excluir: " . mysqli_connect_error($conexao) . "');
+        </script>";
+    }
 
 }
 
-$alunos = mysqli_query($conexao, "SELECT * FROM matricula");
 
 ?>
 
@@ -61,20 +83,38 @@ $alunos = mysqli_query($conexao, "SELECT * FROM matricula");
                 <th>Curso</th>
                 <th>Ações</th>
             </tr>
+        </thead>
         <tbody>
-            <?php while ($aluno = mysqli_fetch_array($alunos)): ?>
+            <?php while ($aluno = mysqli_fetch_assoc($alunos)): ?>
                 <tr>
-                    <td><? $aluno['idMatricula'] ?></td>
-                    <td><? $aluno['nome'] ?></td>
-                    <td><? $aluno['curso'] ?></td>
-                    <td><a href="
-                    ?editar=<?= $aluno["idMatricula"] ?>
-                    ">Editar</a></td>
+                    <td><?= $aluno['idMatricula'] ?></td>
+                    <td><?= $aluno['nome'] ?></td>
+                    <td><?= $aluno['curso'] ?></td>
+                    <td><a href="?editar=<?= $aluno['idMatricula'] ?>">Editar</a></td>
+                    <td><a href="?apagar=<?= $aluno['idMatricula'] ?>">Apagar</a></td>
                 </tr>
-
             <?php endwhile; ?>
         </tbody>
     </table>
+
+    <?php if ($editaAluno): ?>
+        <h3>Editar Aluno</h3>
+        <form method="POST">
+
+            <input type="hidden" name="idMatricula" value="<?= $editaAluno['idMatricula'] ?>">
+
+            <label for="">Nome:</label>
+            <input type="text" name="nome" value="<?= $editaAluno['nome'] ?>"> <br>
+
+            <label>Curso:</label>
+            <input type="text" name="curso" value="<?= $editaAluno['curso'] ?>"> <br>
+
+            <button type="submit" name="atualizar">Atualizar</button>
+            
+            <a href="atualizarCurso.php">Cancelar</a>
+        </form>
+    <?php endif; ?>
 </body>
+
 
 </html>
