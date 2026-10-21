@@ -1,0 +1,144 @@
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: #f3f6fb;
+    color: #243047;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar {
+    background: #102b58;
+}
+
+.hero {
+    color: white;
+    border-radius: 22px;
+    background: linear-gradient(125deg, #1746a2, #3978db);
+    box-shadow: 0 14px 35px rgba(23, 70, 162, 0.18);
+}
+
+.hero p {
+    max-width: 650px;
+}
+
+.section-title {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.feature-card,
+.content-card {
+    background: white;
+    padding: 26px;
+    border-radius: 16px;
+    box-shadow: 0 5px 22px rgba(26, 45, 80, 0.07);
+    border: 1px solid #e6ebf3;
+}
+
+.feature-card h3 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-top: 16px;
+}
+
+.feature-card p {
+    color: #65718a;
+}
+
+.page-heading {
+    margin-bottom: 24px;
+}
+
+.page-heading p {
+    color: #68758c;
+}
+
+.form-label {
+    font-weight: 600;
+}
+
+.form-control {
+    padding: 11px 13px;
+    border-color: #d5deeb;
+    border-radius: 10px;
+}
+
+.form-control:focus {
+    border-color: #4d7fda;
+    box-shadow: 0 0 0 0.2rem rgba(23, 70, 162, 0.12);
+}
+
+.btn {
+    border-radius: 9px;
+    padding: 10px 17px;
+}
+
+.btn-primary {
+    background: #1746a2;
+    border-color: #1746a2;
+}
+
+.btn-primary:hover {
+    background: #103783;
+    border-color: #103783;
+}
+
+.table-wrap {
+    overflow-x: auto;
+    border-radius: 12px;
+}
+
+.table {
+    margin-bottom: 0;
+    vertical-align: middle;
+}
+
+.table thead th {
+    background: #edf2fb;
+    color: #344361;
+    border-bottom: 0;
+    white-space: nowrap;
+}
+
+.table td,
+.table th {
+    padding: 14px 16px;
+}
+
+.badge-course {
+    background: #e8efff;
+    color: #1746a2;
+    padding: 7px 10px;
+    border-radius: 20px;
+}
+
+.empty-state {
+    color: #748096;
+    padding: 25px;
+    text-align: center;
+}
+
+footer {
+    color: #78849a;
+    font-size: 0.9rem;
+}
+
+@media (max-width: 576px) {
+    .hero {
+        border-radius: 15px;
+    }
+
+    .feature-card,
+    .content-card {
+        padding: 20px;
+    }
+
+    .hero .btn {
+        width: 100%;
+        margin-left: 0 !important;
+    }
+}
